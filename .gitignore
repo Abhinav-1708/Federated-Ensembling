@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+venv/
+env/
+ENV/
+fed_e/
+
+# Data files
+data/*.csv
+data/clients/
+data/test.csv
+data/preprocessor.pkl
+
+# Results
+results/
+saved_models/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# TensorFlow / Keras
+*.h5
+*.pb
+*.tflite
+checkpoint
+model_*/
+
+# Logs
+logs/
+*.log
+
+# Environment variables
+.env
+.env.* 
