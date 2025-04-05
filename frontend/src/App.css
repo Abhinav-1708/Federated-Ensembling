@@ -1,0 +1,86 @@
+.App {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.client-card {
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.client-waiting {
+  background-color: #f8f9fa;
+  border-left: 5px solid #6c757d;
+}
+
+.client-training {
+  background-color: #e8f4ff;
+  border-left: 5px solid #007bff;
+  animation: pulse 2s infinite;
+}
+
+.client-completed {
+  background-color: #e8ffe8;
+  border-left: 5px solid #28a745;
+}
+
+.client-error {
+  background-color: #fff0f0;
+  border-left: 5px solid #dc3545;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+  }
+}
+
+.logs-container {
+  background-color: #212529;
+  color: #f8f9fa;
+  border-radius: 5px;
+  padding: 10px;
+  height: 300px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.log-line {
+  margin: 0;
+  padding: 2px 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.round-progress {
+  height: 30px;
+}
+
+.model-badge-0 {
+  background-color: #17a2b8;
+}
+
+.model-badge-1 {
+  background-color: #fd7e14;
+}
+
+.model-badge-2 {
+  background-color: #6f42c1;
+}
+
+.run-item {
+  transition: all 0.2s ease;
+}
+
+.run-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+} 

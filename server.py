@@ -104,6 +104,11 @@ class Server:
         """
         permutation = self.model_permutations[(client_id, round_num)]
         model_idx = permutation[round_num % self.config.num_models]
+        
+        # Add more detailed logging with model names for dashboard tracking
+        model_names = ["Random Forest", "Gradient Boosting", "Neural Network"]
+        self.logger.info(f"Assigning {model_names[model_idx]} (model_idx: {model_idx}) to Client {client_id} in round {round_num+1}")
+        
         return model_idx
     
     def get_model(self, model_idx):
@@ -116,6 +121,8 @@ class Server:
         Returns:
             The model
         """
+        model_names = ["Random Forest", "Gradient Boosting", "Neural Network"]
+        self.logger.info(f"Sending {model_names[model_idx]} to client for training")
         return self.global_models[model_idx]
     
     def receive_model(self, client_id, model_idx, model):
@@ -127,17 +134,23 @@ class Server:
             model_idx: Index of the model
             model: Trained model
         """
-        self.logger.info(f"Received model {model_idx} from client {client_id}")
+        model_names = ["Random Forest", "Gradient Boosting", "Neural Network"]
+        self.logger.info(f"Received {model_names[model_idx]} from Client {client_id}")
         self.received_models[model_idx].append((client_id, model))
     
     def update_global_models(self):
         """Update the global models based on received models from clients"""
-        self.logger.info("Updating global models")
+        self.logger.info("Server is updating global models with received updates")
+        
+        model_names = ["Random Forest", "Gradient Boosting", "Neural Network"]
         
         for model_idx in range(self.config.num_models):
             if not self.received_models[model_idx]:
-                self.logger.warning(f"No updates received for model {model_idx}")
+                self.logger.warning(f"No updates received for {model_names[model_idx]} (model_idx: {model_idx})")
                 continue
+            
+            clients_str = ', '.join([str(client_id) for client_id, _ in self.received_models[model_idx]])
+            self.logger.info(f"Aggregating {model_names[model_idx]} updates from clients: {clients_str}")
             
             # For neural networks, we need to average weights
             if model_idx == 2:
@@ -151,12 +164,14 @@ class Server:
                 
                 # Update the global model weights
                 self.global_models[model_idx].set_weights(avg_weights)
+                self.logger.info(f"Updated global {model_names[model_idx]} with averaged weights")
             else:
                 # For sklearn models, we just use the most recently trained model
                 # Note: This is a simplification, in a real system you might want to 
                 # implement parameter averaging for these models as well
-                _, latest_model = self.received_models[model_idx][-1]
+                client_id, latest_model = self.received_models[model_idx][-1]
                 self.global_models[model_idx] = latest_model
+                self.logger.info(f"Updated global {model_names[model_idx]} with model from Client {client_id}")
         
         # Clear received models for the next round
         self.received_models = {i: [] for i in range(self.config.num_models)}

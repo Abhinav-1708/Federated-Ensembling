@@ -52,7 +52,11 @@ class Client:
         Returns:
             Trained model
         """
-        self.logger.info(f"Client {self.id} training model {model_idx}")
+        model_names = ["Random Forest", "Gradient Boosting", "Neural Network"]
+        model_name = model_names[model_idx]
+        
+        # Log the start of training with model details for dashboard tracking
+        self.logger.info(f"Client {self.id} is now training {model_name} (model_idx: {model_idx})")
         
         # Make a deep copy of the model to train locally
         local_model = copy.deepcopy(model)
@@ -93,19 +97,23 @@ class Client:
         train_time = time.time() - start_time
         
         # Log results
-        self.logger.info(f"Client {self.id} model {model_idx} - "
+        self.logger.info(f"Client {self.id} completed training {model_name} (model_idx: {model_idx}) - "
                         f"Train acc: {train_acc:.4f}, Val acc: {val_acc:.4f}, "
                         f"Training time: {train_time:.2f}s")
         
         # Store training history
         history_entry = {
             'model_idx': model_idx,
+            'model_name': model_name,
             'train_acc': train_acc,
             'val_acc': val_acc,
             'train_time': train_time,
             'train_loss': train_loss
         }
         self.training_history.append(history_entry)
+        
+        # Sending model to server (log for UI tracking)
+        self.logger.info(f"Client {self.id} sending {model_name} back to server")
         
         # Simulate communication delay
         time.sleep(self.config.communication_delay)

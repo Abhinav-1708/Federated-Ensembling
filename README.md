@@ -223,7 +223,7 @@ The system handles different prediction formats:
 
 ## Web Dashboard
 
-The project includes a web-based dashboard to visualize and explore the results of federated ensemble learning runs without having to navigate to the image files manually.
+The project includes an interactive web-based dashboard to visualize and explore the results of federated ensemble learning runs, as well as to control and monitor training in real-time.
 
 ### Dashboard Features
 
@@ -237,6 +237,14 @@ The project includes a web-based dashboard to visualize and explore the results 
   - Shows ensemble weights evolution
   - Presents final metrics for all models and the ensemble
   - Provides detailed information about the final model weights
+  - Allows downloading trained models and ensemble weights
+
+- **Interactive Training Control**:
+  - Start new training with configurable parameters
+  - Real-time monitoring of training progress
+  - Visual display of client status and model assignments
+  - Live training logs
+  - Automatically redirects to results when training completes
 
 ### Running the Dashboard
 
@@ -245,10 +253,17 @@ The project includes a web-based dashboard to visualize and explore the results 
    pip install -r requirements.txt
    ```
 
-2. Run the federated learning simulation to generate results:
+2. Install frontend dependencies (first time only):
    ```bash
-   python main.py --rounds 10 --clients 3 --models 3
+   cd frontend
+   npm install
+   npm run build
+   cd ..
    ```
+   
+   Alternatively, use the provided helper scripts:
+   - Windows: `run_dashboard.bat`
+   - Unix/Linux/Mac: `./run_dashboard.sh` (make executable with `chmod +x run_dashboard.sh` first)
 
 3. Start the dashboard:
    ```bash
@@ -259,6 +274,34 @@ The project includes a web-based dashboard to visualize and explore the results 
    ```
    http://localhost:5000
    ```
+
+5. To start a new training run, go to the "Training Control" page and click "Start Training".
+
+6. Watch the training progress in real-time as clients process data and models are updated.
+
+### Training Visualization Features
+
+The interactive dashboard provides real-time visualization of the federated learning process:
+
+1. **Client Status Tracking**:
+   - See which client is currently training which model
+   - Visual indicators show waiting, training, and completed states
+   - Color-coded model assignments help track which models are being trained
+
+2. **Round Progress**:
+   - Progress bar shows current round out of total rounds
+   - Real-time updates as training progresses
+
+3. **Live Logs**:
+   - View detailed training logs in real-time
+   - See accuracy metrics as they're calculated
+   - Auto-scrolling log window keeps the most recent information visible
+
+4. **Post-Training Analysis**:
+   - Automatic redirection to results when training completes
+   - Interactive plots showing model performance across rounds
+   - Detailed tables with accuracy metrics for all models
+   - Ability to download trained models for further use or analysis
 
 ## Example
 

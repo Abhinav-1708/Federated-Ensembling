@@ -19,8 +19,16 @@ def setup_logging(log_level):
     
     logging.basicConfig(
         level=numeric_level,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
     )
+    
+    # Ensure that logs appear immediately (useful for real-time tracking)
+    logging.getLogger().handlers[0].setFormatter(
+        logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s', 
+                         '%Y-%m-%d %H:%M:%S')
+    )
+    logging.getLogger().handlers[0].flush = lambda: None
 
 def set_seed(seed=42):
     """Set seeds for reproducibility"""
