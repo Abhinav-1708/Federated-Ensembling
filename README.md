@@ -15,8 +15,9 @@ This project implements a federated ensemble learning system that combines multi
    - [Ensemble Methods](#ensemble-methods)
 4. [Model Updating Process](#model-updating-process)
 5. [Ensemble Process](#ensemble-process)
-6. [Example](#example)
-7. [Usage](#usage)
+6. [Web Dashboard](#web-dashboard)
+7. [Example](#example)
+8. [Usage](#usage)
 
 ## Overview
 
@@ -220,6 +221,45 @@ The system handles different prediction formats:
 - Models with `predict_proba` method use the probability of class 1
 - Other models use standard predictions
 
+## Web Dashboard
+
+The project includes a web-based dashboard to visualize and explore the results of federated ensemble learning runs without having to navigate to the image files manually.
+
+### Dashboard Features
+
+- **Main Dashboard Page**:
+  - Lists all available runs
+  - Provides quick access to run results
+  - Shows basic system information
+
+- **Run Results Page**:
+  - Displays performance plots over training rounds
+  - Shows ensemble weights evolution
+  - Presents final metrics for all models and the ensemble
+  - Provides detailed information about the final model weights
+
+### Running the Dashboard
+
+1. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. Run the federated learning simulation to generate results:
+   ```bash
+   python main.py --rounds 10 --clients 3 --models 3
+   ```
+
+3. Start the dashboard:
+   ```bash
+   python dashboard.py
+   ```
+
+4. Open a web browser and navigate to:
+   ```
+   http://localhost:5000
+   ```
+
 ## Example
 
 Here's a simplified example of how the system works with 3 clients, 3 models, and 2 rounds:
@@ -277,4 +317,10 @@ The system will:
 2. Split the data among clients based on age (non-IID distribution)
 3. Run the specified number of federated rounds
 4. Evaluate and save the final models and ensemble
-5. Generate performance plots in the `results` directory 
+5. Generate performance plots in the `results` directory
+
+View the results in the web dashboard:
+```bash
+python dashboard.py
+```
+Then open http://localhost:5000 in your browser. 
